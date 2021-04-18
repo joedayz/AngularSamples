@@ -6,7 +6,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "understanding-injectable": {
+    "form-container-data": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/understanding-injectable",
+            "outputPath": "dist/form-container-data",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -68,18 +68,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "understanding-injectable:build"
+            "browserTarget": "form-container-data:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "understanding-injectable:build:production"
+              "browserTarget": "form-container-data:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "understanding-injectable:build"
+            "browserTarget": "form-container-data:build"
           }
         },
         "test": {
@@ -116,16 +116,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "understanding-injectable:serve"
+            "devServerTarget": "form-container-data:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "understanding-injectable:serve:production"
+              "devServerTarget": "form-container-data:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "understanding-injectable"
+  "defaultProject": "form-container-data"
 }
