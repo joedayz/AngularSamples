@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {FormArray, FormControl, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {Product} from '../models/product.interface';
 
 
@@ -36,30 +36,49 @@ export class StockInventoryComponent {
     { "id": 5, "price": 600, "name": "Apple Watch" },
   ];
 
+  constructor(private fb: FormBuilder) {
+  }
 
-  form = new FormGroup({
-    store: new FormGroup({
-      branch: new FormControl('B182'),
-      code: new FormControl('1234')
+  // form = new FormGroup({
+  //   store: new FormGroup({
+  //     branch: new FormControl('B182'),
+  //     code: new FormControl('1234')
+  //   }),
+  //   selector: new FormGroup({
+  //     product_id: new FormControl('3'),
+  //     quantity: new FormControl(50)
+  //   }),
+  //   stock: new FormArray([
+  //     this.createStock({product_id:1, quantity: 10}),
+  //     this.createStock({product_id:3, quantity: 50}),
+  //   ])
+  // });
+
+  form = this.fb.group({
+    store: this.fb.group({
+      branch: '',
+      code: ''
     }),
-    selector: new FormGroup({
-      product_id: new FormControl('3'),
-      quantity: new FormControl(50)
-    }),
-    stock: new FormArray([
-      this.createStock({product_id:1, quantity: 10}),
-      this.createStock({product_id:3, quantity: 50}),
+    selector: this.createStock({}),
+    stock: this.fb.array([
+      this.createStock({product_id: 1, quantity: 10}),
+      this.createStock({product_id: 2, quantity: 50}),
     ])
-  });
+  })
+
 
   onSubmit() {
     console.log('Submit: ', this.form.value);
   }
 
   private createStock(stock) {
-    return new FormGroup({
-      product_id: new FormControl(parseInt(stock.product_id, 10) || ''),
-      quantity: new FormControl(stock.quantity || 10)
+    // return new FormGroup({
+    //   product_id: new FormControl(parseInt(stock.product_id, 10) || ''),
+    //   quantity: new FormControl(stock.quantity || 10)
+    // })
+    return this.fb.group({
+      product_id: parseInt(stock.product_id, 10) || '',
+      quantity: stock.quantity || 10
     })
   }
 
