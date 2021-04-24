@@ -26,6 +26,11 @@ import {forkJoin, Observable} from 'rxjs';
           (removed)="removeStock($event)">
         </stock-products>
 
+        <div class="stock-inventory__price">
+          Total: {{ total | currency:'USD':true }}
+        </div>
+
+
         <div class="stock-inventory__buttons">
           <button
             type="submit"
@@ -43,6 +48,8 @@ import {forkJoin, Observable} from 'rxjs';
 export class StockInventoryComponent implements OnInit{
 
   products: Product[];
+
+  total: number;
 
   productMap: Map<number, Product>;
 
@@ -67,6 +74,10 @@ export class StockInventoryComponent implements OnInit{
       this.products = products;
       cart.forEach(item => this.addStock(item));
 
+      this.calculeTotal(this.form.get('stock').value);
+      this.form.get('stock').valueChanges.subscribe(
+        value => this.calculeTotal(value));
+
     });
 
   }
@@ -76,10 +87,7 @@ export class StockInventoryComponent implements OnInit{
       code: ''
     }),
     selector: this.createStock({}),
-    stock: this.fb.array([
-      this.createStock({product_id: 1, quantity: 10}),
-      this.createStock({product_id: 2, quantity: 50}),
-    ])
+    stock: this.fb.array([])
   })
 
 
@@ -110,4 +118,10 @@ export class StockInventoryComponent implements OnInit{
   }
 
 
+  private calculeTotal(value: Item[]) {
+    const total = value.reduce( (prev, next) => {
+      return prev + (next.quantity * this.productMap.get(next.product_id).price);
+    }, 0);
+    this.total = total;
+  }
 }
