@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Item, Product} from '../models/product.interface';
 import {StockInventoryService} from '../services/stock-inventory.service';
 import {forkJoin, Observable} from 'rxjs';
 import {StockValidators} from './stock-inventory.validators';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'stock-inventory',
@@ -89,11 +90,18 @@ export class StockInventoryComponent implements OnInit{
     }),
     selector: this.createStock({}),
     stock: this.fb.array([])
-  })
+  }, { validator: StockValidators.checkStockExists });
 
 
   onSubmit() {
     console.log('Submit: ', this.form.value);
+  }
+
+  validateBranch(control: AbstractControl){
+    return this.stockService.checkBranchId(control.value)
+      .pipe(
+        map( (response: boolean) => response ? null : { unknownBranch: true } )
+      );
   }
 
   private createStock(stock) {
