@@ -18,7 +18,7 @@ export class MailFolderComponent {
     "id": 1,
     "folder": "inbox",
     "from": "Jane Smith",
-    "summary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur lobortis, neque at ultricies fringilla, ligula metus",
+    "summary": "Materia Gris",
     "timestamp": 1487848162905
   }];
 }
