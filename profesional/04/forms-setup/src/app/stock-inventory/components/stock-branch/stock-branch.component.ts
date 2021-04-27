@@ -34,7 +34,7 @@ export class StockBranchComponent {
 
   get unknown(){
     return (
-      this.parent.get('store.branch').hasError('unknowBranch') &&
+      this.parent.get('store.branch').hasError('unknownBranch') &&
         this.parent.get('store.branch').dirty
     );
   }

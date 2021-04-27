@@ -4,7 +4,7 @@ import {Item, Product} from '../models/product.interface';
 import {StockInventoryService} from '../services/stock-inventory.service';
 import {forkJoin, Observable} from 'rxjs';
 import {StockValidators} from './stock-inventory.validators';
-import {map} from 'rxjs/operators';
+import {map, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'stock-inventory',
@@ -85,23 +85,30 @@ export class StockInventoryComponent implements OnInit{
   }
   form = this.fb.group({
     store: this.fb.group({
-      branch: ['', [Validators.required, StockValidators.checkBranch]],
+      branch: [
+        '',
+        [Validators.required, StockValidators.checkBranch],
+        [this.validateBranch.bind(this)]
+      ],
       code: ['', Validators.required]
     }),
     selector: this.createStock({}),
     stock: this.fb.array([])
   }, { validator: StockValidators.checkStockExists });
 
-
   onSubmit() {
     console.log('Submit: ', this.form.value);
   }
 
   validateBranch(control: AbstractControl){
-    return this.stockService.checkBranchId(control.value)
+
+    let valor = this.stockService.checkBranchId(control.value)
       .pipe(
-        map( (response: boolean) => response ? null : { unknownBranch: true } )
+        tap( res => console.log('Repuesta:', res)),
+        map( (res: boolean) => res ? null : { unknownBranch: true } )
       );
+
+    return valor;
   }
 
   private createStock(stock) {

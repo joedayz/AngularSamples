@@ -1,5 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {Mail} from '../../models/mail.interface';
+import {ActivatedRoute} from '@angular/router';
+import {Observable} from 'rxjs';
 
 
 @Component({
@@ -7,18 +9,17 @@ import {Mail} from '../../models/mail.interface';
   styleUrls: ['mail-folder.component.scss'],
   template: `
     <h2>Inbox</h2>
-    <mail-item
-      *ngFor="let message of messages"
-      [message]="message">
-    </mail-item>
+    <p> {{ data | json }}</p>
+<!--    <mail-item-->
+<!--      *ngFor="let message of messages"-->
+<!--      [message]="message">-->
+<!--    </mail-item>-->
   `
 })
 export class MailFolderComponent {
-  messages: Mail[] = [{
-    "id": 1,
-    "folder": "inbox",
-    "from": "Jane Smith",
-    "summary": "Materia Gris",
-    "timestamp": 1487848162905
-  }];
+  data: Observable<{ messages: Mail[] }> = this.route.data;
+
+  constructor(private route: ActivatedRoute ) {
+  }
+
 }
