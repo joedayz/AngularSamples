@@ -12,7 +12,7 @@ export class MailService{
   }
 
   getFolder(folder: string): Observable<Mail[]>{
-    return this.http.get(`http://localhost:3000/messages?folder=${folder}`)
+    return this.http.get(`http://localhost:3000/messages?folder=${folder}`, { responseType: 'json'})
       .pipe(
        map((response: Mail[]) => response)
       );
