@@ -3,32 +3,33 @@ import {Component, OnInit} from '@angular/core';
 import { Mail } from '../../models/mail.interface';
 import {ActivatedRoute} from '@angular/router';
 import {Observable} from 'rxjs';
+import {pluck} from 'rxjs/operators';
 
 @Component({
   selector: 'mail-folder',
   styleUrls: ['mail-folder.component.scss'],
   template: `
-    <h2>Inbox</h2>
 
-    {{ data | json }}
-<!--    <mail-item
-      *ngFor="let message of messages"
+    <h2>{{ title | async }}</h2>
+    <mail-item
+      *ngFor="let message of (messages | async)"
       [message]="message">
-    </mail-item>-->
+    </mail-item>
   `
 })
-export class MailFolderComponent implements OnInit{
+export class MailFolderComponent {
 
-  data: any;
+  messages: Observable<Mail[]> = this.route.data
+    .pipe(
+      pluck('messages')
+    );
+  title: Observable<string> = this.route.params
+    .pipe(
+      pluck('name')
+    );
 
  constructor(private route: ActivatedRoute) {
  }
-
-  ngOnInit(): void {
-   this.route.data.subscribe( data => {
-    this.data = data;
-   });
-  }
 
 
 }
