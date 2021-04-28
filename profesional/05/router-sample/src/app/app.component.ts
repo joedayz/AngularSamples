@@ -1,10 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
 import {filter} from 'rxjs/operators';
+import {subscribeTo} from 'rxjs/internal-compatibility';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-root',
-  styleUrls: ['./app.component.scss'],
+  styleUrls: ['app.component.scss'],
   template: `
     <div class="app">
       <header>
@@ -28,17 +30,16 @@ import {filter} from 'rxjs/operators';
     </div>
   `
 })
-export class AppComponent implements OnInit{
-  constructor(private router: Router) {
-  }
+export class AppComponent implements OnInit {
 
-  ngOnInit(): void{
-    this.router.events
-      .pipe(
-        filter(event => event instanceof NavigationEnd)
-      )
-      .subscribe(event => {
-        console.log(event);
-      });
+  navEnd: Observable<NavigationEnd>;
+
+  constructor(private router: Router) {}
+
+  ngOnInit(): void {
+    this.navEnd = this.router.events.pipe(
+      filter(evt => evt instanceof NavigationEnd)
+    ) as Observable<NavigationEnd>;
+    this.navEnd.subscribe(event => console.log(event));
   }
 }

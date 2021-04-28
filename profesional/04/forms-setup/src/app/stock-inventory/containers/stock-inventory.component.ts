@@ -104,7 +104,7 @@ export class StockInventoryComponent implements OnInit{
 
     let valor = this.stockService.checkBranchId(control.value)
       .pipe(
-        tap( res => console.log('Repuesta:', res)),
+        tap( res => console.log('Respuesta:', res)),
         map( (res: boolean) => res ? null : { unknownBranch: true } )
       );
 
