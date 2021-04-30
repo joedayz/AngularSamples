@@ -4,11 +4,11 @@ import {Observable, of} from 'rxjs';
 
 @Injectable()
 export class AuthService {
-  user = { isAdmin: false };
+  user = { isAdmin: true };
   checkPermissions(): Observable<boolean> {
     return of(this.user.isAdmin);
   }
   isLoggedIn(): Observable<boolean>{
-    return of(true);
+    return of(false);
   }
 }
