@@ -10,8 +10,8 @@ import {Router} from '@angular/router';
   template: `
     <a
       class="mail-item"
-       [routerLink]="['', { outlets: {  pane: ['message', message.id] } } ]"
-        routerLinkActive="active">
+      [routerLink]="['/mail', { outlets: { pane: ['message', message.id] } }]"
+      routerLinkActive="active">
       <h3>
         {{ message.from }}
         <span>{{ message.timestamp | date:'shortTime' }}</span>

@@ -6,11 +6,12 @@ import {MailModule} from './mail/mail.module';
 
 import {AppComponent} from './app.component';
 import {HttpClientModule} from '@angular/common/http';
-import {MailService} from './mail/mail.service';
-import {MailFolderResolve} from './mail/containers/mail-folder/mail-folder.resolve';
+import {DashboardModule} from './dashboard/dashboard.module';
+
 
 export const ROUTES: Routes = [
-  { path: '**', redirectTo: 'folder/inbox' }
+  { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' },
+  { path: '**', redirectTo: 'mail/folder/inbox' }
 ];
 
 @NgModule({
@@ -21,10 +22,8 @@ export const ROUTES: Routes = [
     BrowserModule,
     HttpClientModule,
     MailModule,
+    DashboardModule,
     RouterModule.forRoot(ROUTES)
-  ],
-  providers: [
-    MailService, MailFolderResolve
   ],
   bootstrap: [
     AppComponent
