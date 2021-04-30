@@ -12,6 +12,4 @@ import { Component } from '@angular/core';
     </div>
   `
 })
-export class MailAppComponent {
-
-}
+export class MailAppComponent {}

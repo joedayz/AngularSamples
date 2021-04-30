@@ -5,10 +5,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { MailFolderComponent } from './containers/mail-folder/mail-folder.component';
 import { MailItemComponent } from './components/mail-item/mail-item.component';
 import { MailAppComponent } from './components/mail-app/mail-app.component';
-import {MailFolderResolve} from './containers/mail-folder/mail-folder.resolve';
-import {MailViewComponent} from './components/mail-view/mail-view.component';
-import {MailViewResolve} from './components/mail-view/mail-view.resolve';
-import {MailService} from './mail.service';
+import { MailViewComponent } from './components/mail-view/mail-view.component';
+import { MailViewResolve } from './components/mail-view/mail-view.resolve';
+
+import { MailFolderResolve } from './containers/mail-folder/mail-folder.resolve';
+import { MailService } from './mail.service';
 
 export const ROUTES: Routes = [
   {

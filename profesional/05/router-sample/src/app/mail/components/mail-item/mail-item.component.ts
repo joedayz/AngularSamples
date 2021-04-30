@@ -1,14 +1,12 @@
-import {Component, Input} from '@angular/core';
+import { Component, Input } from '@angular/core';
 
-import {Mail} from '../../models/mail.interface';
-import {Router} from '@angular/router';
+import { Mail } from '../../models/mail.interface';
 
 @Component({
-  // tslint:disable-next-line:component-selector
   selector: 'mail-item',
   styleUrls: ['mail-item.component.scss'],
   template: `
-    <a
+    <a 
       class="mail-item"
       [routerLink]="['/mail', { outlets: { pane: ['message', message.id] } }]"
       routerLinkActive="active">
@@ -23,5 +21,4 @@ import {Router} from '@angular/router';
 export class MailItemComponent {
   @Input()
   message: Mail;
-
 }

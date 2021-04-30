@@ -35,16 +35,4 @@ import {Observable} from 'rxjs';
     </div>
   `
 })
-export class AppComponent implements OnInit {
-
-  navEnd: Observable<NavigationEnd>;
-
-  constructor(private router: Router) {}
-
-  ngOnInit(): void {
-    this.navEnd = this.router.events.pipe(
-      filter(evt => evt instanceof NavigationEnd)
-    ) as Observable<NavigationEnd>;
-    this.navEnd.subscribe(event => console.log(event));
-  }
-}
+export class AppComponent {}

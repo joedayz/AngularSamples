@@ -9,7 +9,6 @@ import {pluck} from 'rxjs/operators';
   selector: 'mail-folder',
   styleUrls: ['mail-folder.component.scss'],
   template: `
-
     <h2>{{ title | async }}</h2>
     <mail-item
       *ngFor="let message of (messages | async)"

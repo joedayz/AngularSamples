@@ -7,10 +7,12 @@ import {MailModule} from './mail/mail.module';
 import {AppComponent} from './app.component';
 import {HttpClientModule} from '@angular/common/http';
 import {DashboardModule} from './dashboard/dashboard.module';
+import {AuthGuard} from './auth/auth.guard';
+import {AuthModule} from './auth/auth.module';
 
 
 export const ROUTES: Routes = [
-  { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' },
+  { path: 'dashboard', canLoad: [AuthGuard],  loadChildren: './dashboard/dashboard.module#DashboardModule' },
   { path: '**', redirectTo: 'mail/folder/inbox' }
 ];
 
@@ -22,7 +24,7 @@ export const ROUTES: Routes = [
     BrowserModule,
     HttpClientModule,
     MailModule,
-    DashboardModule,
+    AuthModule,
     RouterModule.forRoot(ROUTES)
   ],
   bootstrap: [
