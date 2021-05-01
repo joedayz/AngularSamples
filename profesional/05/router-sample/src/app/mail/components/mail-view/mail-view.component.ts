@@ -27,6 +27,7 @@ import {pluck} from 'rxjs/operators';
 })
 export class MailViewComponent implements OnInit{
   reply = '';
+  hasUnsavedChanges = false;
   message: Observable<Mail> = this.route.data
     .pipe(
       pluck('message')
@@ -39,15 +40,18 @@ export class MailViewComponent implements OnInit{
   ngOnInit(): void {
     this.route.params.subscribe(() => {
       this.reply = '';
+      this.hasUnsavedChanges = false;
     });
   }
 
   updateReply(value: string): void {
     this.reply = value;
+    this.hasUnsavedChanges = true;
   }
 
   sendReply(): void{
     console.log('Sent!', this.reply);
+    this.hasUnsavedChanges =  false;
   }
 
 }

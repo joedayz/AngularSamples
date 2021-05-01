@@ -18,7 +18,7 @@ export class AuthGuard implements CanLoad, CanActivate, CanActivateChild{
     return this.authService.isLoggedIn();
   }
 
-  canActivateChild(): boolean {
-    return false;
+  canActivateChild(): Observable<boolean> {
+    return this.authService.isLoggedIn();
   }
 }

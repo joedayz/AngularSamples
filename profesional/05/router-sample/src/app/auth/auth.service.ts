@@ -9,6 +9,6 @@ export class AuthService {
     return of(this.user.isAdmin);
   }
   isLoggedIn(): Observable<boolean>{
-    return of(false);
+    return of(true);
   }
 }
